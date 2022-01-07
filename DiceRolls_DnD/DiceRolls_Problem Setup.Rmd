@@ -1,0 +1,24 @@
+---
+title: "DiceRollPuzzle"
+author: "Jon Downs"
+date: "1/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Puzzle source
+This puzzle has been adapted from: [The Riddler at 538](https://fivethirtyeight.com/features/can-you-stick-it-to-the-genie/).
+
+## The problem
+I have three dice (d4, d6, d8) on my desk that I fiddle with while working, much to the chagrin of my co-workers. For the uninitiated, the d4 is a tetrahedron that is equally likely to land on any of its four faces (numbered 1 through 4), the d6 is a cube that is equally likely to land on any of its six faces (numbered 1 through 6), and the d8 is an octahedron that is equally likely to land on any of its eight faces (numbered 1 through 8).
+
+I like to play a game in which I roll all three dice in “numerical” order: d4, then d6 and then d8. I win this game when the three rolls form a strictly increasing sequence (such as 2-4-7, but not 2-4-4). What is my probability of winning?
+
+To solve this puzzle, we suggest that you:
+
+1) Create a dataframe or other R object of all possible sequences (e.g. column names of d4_roll, d6_roll, and d8_roll)
+
+2) From this dataframe, determine the percentage of rows where the win condition is met (increasing numbers on each roll).
