@@ -22,3 +22,5 @@ To solve this puzzle, we suggest that you:
 1) Create a dataframe or other R object of all possible sequences (e.g. column names of d4_roll, d6_roll, and d8_roll)
 
 2) From this dataframe, determine the percentage of rows where the win condition is met (increasing numbers on each roll).
+
+Email solutions to jon.downs@doh.wa.gov.
