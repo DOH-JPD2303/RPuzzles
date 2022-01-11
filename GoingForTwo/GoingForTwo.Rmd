@@ -1,0 +1,24 @@
+---
+title: "GoingForTwo"
+author: "Jon Downs"
+date: "1/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Puzzle source
+
+This puzzle is adapted from <https://fivethirtyeight.com/features/can-you-trek-the-triangle/>.
+
+## The problem
+
+In the Riddler Football League, you are coaching the Arizona Ordinals against your opponent, the Detroit Lines, and your team is down by 14 points. You can assume that you have exactly two remaining possessions (i.e., opportunities to score), and that Detroit will score no more points.
+
+For those unfamiliar with American football, a touchdown is worth 6 points. After each touchdown, you can decide whether to go for 1 extra point or 2 extra points. You happen to have a great kicker on your team, and your chances of scoring 1 extra point (should you go for it) are 100 percent. Meanwhile, scoring 2 extra points is no sure thing — suppose that your team’s probability of success is some value p.
+
+If the teams are tied at the end of regulation, the game proceeds to overtime, which you have a 50 percent chance of winning. (Assuming ties are not allowed.)
+
+What is the minimum value of p such that you’d go for 2 extra points after your team’s first touchdown (i.e., when you’re down 8 points)?
