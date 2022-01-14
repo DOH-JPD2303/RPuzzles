@@ -9,9 +9,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Puzzle source
+## Puzzle source/submission info
 
-This puzzle is adapted from <https://fivethirtyeight.com/features/can-you-trek-the-triangle/>.
+This puzzle is comes from <https://fivethirtyeight.com/features/can-you-trek-the-triangle/>.
+
+Submit your answers to Jon Downs (jon.downs@doh.wa.gov) by 4:00 PM on 1/20/2022!
 
 ## The problem
 
