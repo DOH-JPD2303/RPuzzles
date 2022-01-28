@@ -1,0 +1,47 @@
+---
+title: "GoingForTwo_Algebra"
+author: "Jon Downs"
+date: "1/19/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Going for Two Algebraic Solution
+
+For each possession, you have 3 possibilities: succeed on 1, succeed on 2, fail on 2. This makes for 9 distinct scenarios. However, not all scenarios are what a rational person would do. For example, why would you go for two when you could win the game with a (guaranteed) field goal?
+
+Really, there are 3 outcomes:
+
+1. Going for two, succeeding, then kicking the field goal (win 100% of the time)
+2. Going for two, failing, then getting the subsequent two pointer (OT, 50% chance to win)
+3. Going for two twice and failing each time (loss 100% of the time)
+
+
+So, we are looking for the probability of success p that results in at least the same probability of winning as you would have in overtime (50%). Or, algebraically...
+
+$0.5 = 0*(1-p)^2 + \frac{1}{2}(p)(1-p) + 1p$
+
+Let's show our work 8th grade style (good learning opportunity for markdown!).
+
+$0 = \frac{1}{2}(p)(1-p) + p - \frac{1}{2}$
+
+$0 = \frac{1}{2}(p-p^2) + p - \frac{1}{2}$
+
+$0 = -\frac{1}{2}p^2 + \frac{3}{2}p - \frac{1}{2}$
+
+$0 = p^2 - 3p + 1$
+
+Using the quadratic formula....
+
+$p = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
+
+$p = \frac{-(-3) \pm \sqrt{(3)^2 - 4(1)(1)}}{2(1)}$
+
+$p = \frac{3 \pm \sqrt{9 - 4}}{2}$
+
+$p = \frac{3 \pm \sqrt{5}}{2}$
+
+This has solutions of 0.3820 and its reciprocal 2.618. Thus, at a 38.2% chance of 2 point conversion success, you can expect the overtime and two point conversion scenarios to produce an identical amount of wins.
