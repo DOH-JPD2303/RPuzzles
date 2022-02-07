@@ -1,0 +1,25 @@
+---
+title: "Fencing Relay"
+author: "Jon Downs"
+date: "2/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The Fencing Relay (original puzzle from [538's The Riddler](https://fivethirtyeight.com/features/en-garde-can-you-win-the-fencing-relay/))
+You are the coach at Riddler Fencing Academy, where your three students are squaring off against a neighboring squad. Each of your students has a different probability of winning any given point in a match. You have three fencers on your team:
+
+1) The strongest fencer has a 75 percent chance of winning each point
+2) The weakest has a 25 percent chance to win each point 
+3) The remaining fencer has a 50 percent chance to win each point
+
+The match will be a relay. First, one of your students will face off against an opponent. As soon as one of them reaches a score of 15, they are both swapped out. Then, a different student of yours faces a different opponent, continuing from wherever the score left off. When one team reaches 30 (not necessarily from the same team that first reached 15), both fencers are swapped out. The remaining two fencers continue the relay until one team reaches 45 points.
+
+As the coach, you can choose the order in which your three students occupy the three positions in the relay: going first, second or third. How will you order them? And then what will be your team’s chances of winning the relay?
+
+## Submissions
+
+Send submissions to jon.downs@doh.wa.gov and sean.coffinger@doh.wa.gov by 2/10 at 5:00 PM.
