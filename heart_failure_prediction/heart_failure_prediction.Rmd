@@ -97,12 +97,28 @@ cat(paste0('ACCURACY: ', acc_train, '\n',
 ### Predict on testing data
 
 ```{r test}
-# Get accuracy on testing data --------------------------------------------
+# Run model on test data
 test_preds <- test %>% 
   mutate(pred = predict(mod, ., type = 'response'),
          pred = round(pred, 2),
          predyesno = ifelse(pred > 0.5, 1, 0),
          pred_correct = predyesno == DEATH_EVENT)
+
+# Bin into groups for line chart
+sums_test <- test_preds %>%
+  mutate(pred2 = round(pred, 1)) %>%
+  group_by(pred2) %>%
+  summarize(n = n(),
+            nevents = sum(DEATH_EVENT),
+            pevents = nevents/n)
+
+# Plot it
+ggplot(sums_test, aes(x = pred2, y = pevents)) + 
+  geom_line() +
+  geom_abline(slope = 1, color = 'red') +
+  xlab('Predicted probability of event') +
+  ylab('Percent of records with an event')
+
 
 # How accurate were we?
 xtab_test <- with(test_preds, table(predyesno, DEATH_EVENT))
