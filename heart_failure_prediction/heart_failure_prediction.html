@@ -200,7 +200,7 @@ test &lt;- dat %&gt;%
 </div>
 <div id="fit-model-on-training-data" class="section level3">
 <h3>Fit model on training data</h3>
-<p>Next, let’s fit our model on our training data and see how it performs</p>
+<p>Next, let’s fit our model on our training data and see how it performs. Basically, we’re throwing all of the data in the dataset at the model with 0 manipulation. With some data cleaning and data exploration, it may be possible to make a better model!</p>
 <pre class="r"><code># Fit a logistic model and produce predicted probabilities for each row
 mod &lt;- glm(DEATH_EVENT ~ ., data = train, family = &#39;binomial&#39;)
 

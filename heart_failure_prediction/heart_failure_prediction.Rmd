@@ -47,7 +47,7 @@ test <- dat %>%
 
 ### Fit model on training data
 
-Next, let's fit our model on our training data and see how it performs
+Next, let's fit our model on our training data and see how it performs. Basically, we're throwing all of the data in the dataset at the model with 0 manipulation. With some data cleaning and data exploration, it may be possible to make a better model!
 
 ```{r train_fit, include = TRUE}
 # Fit a logistic model and produce predicted probabilities for each row
