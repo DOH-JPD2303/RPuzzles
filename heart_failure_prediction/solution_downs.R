@@ -12,7 +12,7 @@ dat <- data.table::fread(infile)
 # Fit a logistic model and produce predicted probabilities for each row
 mod <- glm(DEATH_EVENT ~ ., data = dat, family = 'binomial')
 
-# Add predicted values to the dataset, assume any modeled prob >0.5 is a yes,
+# Add predicted values to the data set, assume any modeled prob >0.5 is a yes,
 # and set an indicator variable for whether the model result was accurate
 dat_out <- dat %>%
   mutate(pred = round(mod$fitted, 2),
