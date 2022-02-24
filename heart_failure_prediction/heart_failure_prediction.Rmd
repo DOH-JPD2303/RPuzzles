@@ -1,0 +1,120 @@
+---
+title: "Heart Failure Prediction"
+author: "WA DOH R User Group"
+date: "2/24/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Data source and problem introduction
+
+For this exercise, you will be trying to predict heart failure in a labeled data set. A description of the data set and your copy for this exercise can be downloaded from <https://www.kaggle.com/andrewmvd/heart-failure-clinical-data/version/1>. Note you may need to create a Kaggle account to access the data.
+
+Everyone who participates will have the opportunity to show off their code at a R user group meeting after the submission deadline. Please submit answers to Jon Downs (jon.downs@doh.wa.gov) and Sean Coffinger (sean.coffinger@doh.wa.gov) by 5:00 PM on 3/16/2022. Please have your submissions be reproducible examples! Someone should be able to run your code as long as they have a copy of the data set.
+
+Below, a sample submission is provided as a basic guide on how to complete the problem. It is not a very well-thought out attempt: hopefully you can do better!
+
+## An example submission.
+
+### Load needed libraries and read in the CSV file
+
+```{r start, include = TRUE}
+# Contest: https://www.kaggle.com/andrewmvd/heart-failure-clinical-data/version/1
+# Load in libraries and datafile
+library(data.table)
+library(tidyverse)
+infile <- './heart_failure_clinical_records_dataset.csv'
+dat <- data.table::fread(infile)
+```
+
+### Make testing and training datasets (80% train, 20% test)
+
+Typically when modeling, it's a good idea to split data into testing and training sets. The training set is the set that you will use to fit the model. You would then use the model you fit on the training data to try to predict events in the testing data. This is a good way to ensure the model does well when predicting data it has not seen before.
+
+```{r trsplit, include = TRUE}
+# Save 20% for testing, 80% for model fit
+train_frac <- round(0.8*nrow(dat))
+set.seed(9000)
+train <- sample_n(dat, train_frac)
+test <- dat %>%
+  anti_join(train)
+
+```
+
+
+### Fit model on training data
+
+Next, let's fit our model on our training data and see how it performs
+
+```{r train_fit, include = TRUE}
+# Fit a logistic model and produce predicted probabilities for each row
+mod <- glm(DEATH_EVENT ~ ., data = train, family = 'binomial')
+
+# Add predicted values to the data set, assume any modeled prob >0.5 is a yes,
+# and set an indicator variable for whether the model result was accurate
+train_preds <- train %>%
+  mutate(pred = round(mod$fitted, 2),
+         predyesno = ifelse(pred > 0.5, 1, 0),
+         pred_correct = predyesno == DEATH_EVENT)
+
+```
+
+Let's see how accurate our predictions were by batching them into bins. We will then compare the percent of deaths versus the predicted probability in each bin. For example, for folks in the 5-14% model-predicted death range, the prevalence of death within that group would also be in the 5-14% range if the model were well-calibrated. 
+
+Let's also get the overall accuracy, positive predictive value, and negative predictive value
+
+```{r train_eval}
+sums <- train_preds %>%
+  mutate(pred2 = round(pred, 1)) %>%
+  group_by(pred2) %>%
+  summarize(n = n(),
+            nevents = sum(DEATH_EVENT),
+            pevents = nevents/n)
+# Plot it
+ggplot(sums, aes(x = pred2, y = pevents)) + 
+  geom_line() +
+  geom_abline(slope = 1, color = 'red') +
+  xlab('Predicted probability of event') +
+  ylab('Percent of records with an event')
+
+# How accurate were we?
+xtab_train <- with(train_preds, table(predyesno, DEATH_EVENT))
+acc_train <- round(sum(train_preds$pred_correct)/nrow(train_preds), 2)
+sens_train <- round(xtab_train[4]/(xtab_train[2] + xtab_train[4]), 2)
+spec_train <- round(xtab_train[1]/(xtab_train[1] + xtab_train[3]), 2)
+ppv_train <- round(xtab_train[4]/(xtab_train[3] + xtab_train[4]), 2)
+npv_train <- round(xtab_train[1]/(xtab_train[1] + xtab_train[2]), 2)
+cat(paste0('ACCURACY: ', acc_train, '\n',
+           'SENSITIVITY: ', sens_train, "\n", 
+           'SPECIFICITY: ', spec_train, "\n",
+           'PPV: ', ppv_train, "\n",
+           "NPV: ", npv_train))
+
+```
+### Predict on testing data
+
+```{r test}
+# Get accuracy on testing data --------------------------------------------
+test_preds <- test %>% 
+  mutate(pred = predict(mod, ., type = 'response'),
+         pred = round(pred, 2),
+         predyesno = ifelse(pred > 0.5, 1, 0),
+         pred_correct = predyesno == DEATH_EVENT)
+
+# How accurate were we?
+xtab_test <- with(test_preds, table(predyesno, DEATH_EVENT))
+acc_test <- round(sum(test_preds$pred_correct)/nrow(test_preds), 2)
+sens_test <- round(xtab_test[4]/(xtab_test[2] + xtab_test[4]), 2)
+spec_test <- round(xtab_test[1]/(xtab_test[1] + xtab_test[3]), 2)
+ppv_test <- round(xtab_test[4]/(xtab_test[3] + xtab_test[4]), 2)
+npv_test <- round(xtab_test[1]/(xtab_test[1] + xtab_test[2]), 2)
+cat(paste0('ACCURACY: ', acc_test, '\n',
+           'SENSITIVITY: ', sens_test, "\n", 
+           'SPECIFICITY: ', spec_test, "\n",
+           'PPV: ', ppv_test, "\n",
+           "NPV: ", npv_test))
+
+```
