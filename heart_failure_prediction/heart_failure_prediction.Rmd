@@ -27,7 +27,8 @@ Below, a sample submission is provided as a basic guide on how to complete the p
 library(data.table)
 library(tidyverse)
 infile <- './heart_failure_clinical_records_dataset.csv'
-dat <- data.table::fread(infile)
+dat <- data.table::fread(infile) %>%
+  select(-time)
 ```
 
 ### Make testing and training datasets (80% train, 20% test)
