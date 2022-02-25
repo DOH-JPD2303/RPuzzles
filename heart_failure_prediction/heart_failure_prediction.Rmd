@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ## Data source and problem introduction
 
-For this exercise, you will be trying to predict heart failure in a labeled data set. A description of the data set and your copy for this exercise can be downloaded from <https://www.kaggle.com/andrewmvd/heart-failure-clinical-data/version/1>. Note you may need to create a Kaggle account to access the data.
+For this exercise, you will be trying to predict heart failure in a labeled data set. A description of the data set and your copy for this exercise can be downloaded from <https://www.kaggle.com/andrewmvd/heart-failure-clinical-data/version/1>. Note you may need to create a Kaggle account to access the data. Alternatively, you may download the file from this Github repo [here](https://github.com/DOH-jpd2303/RPuzzles/blob/main/heart_failure_prediction/heart_failure_clinical_records_dataset.csv).
 
 Everyone who participates will have the opportunity to show off their code at a R user group meeting after the submission deadline. Please submit answers to Jon Downs (jon.downs@doh.wa.gov) and Sean Coffinger (sean.coffinger@doh.wa.gov) by 5:00 PM on 3/16/2022. Please have your submissions be reproducible examples! Someone should be able to run your code as long as they have a copy of the data set.
 
